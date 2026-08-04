@@ -1,0 +1,109 @@
+@font-face {
+    font-family: 'Khand-Light';
+    src: url('../assets/fonts/Khand-Light.woff2') format('woff2'),
+        url('../assets/fonts/Khand-Light.woff') format('woff'),
+        url('../assets/fonts/Khand-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-display: swap;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Khand-Regular';
+    src: url('../assets/fonts/Khand-Regular.woff2') format('woff2'),
+        url('../assets/fonts/Khand-Regular.woff') format('woff'),
+        url('../assets/fonts/Khand-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-display: swap;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Khand-Medium';
+    src: url('../assets/fonts/Khand-Medium.woff2') format('woff2'),
+        url('../assets/fonts/Khand-Medium.woff') format('woff'),
+        url('../assets/fonts/Khand-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-display: swap;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Khand-SemiBold';
+    src: url('../assets/fonts/Khand-SemiBold.woff2') format('woff2'),
+        url('../assets/fonts/Khand-SemiBold.woff') format('woff'),
+        url('../assets/fonts/Khand-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-display: swap;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Khand-Bold';
+    src: url('../assets/fonts/Khand-Bold.woff2') format('woff2'),
+        url('../assets/fonts/Khand-Bold.woff') format('woff'),
+        url('../assets/fonts/Khand-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-display: swap;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Array-Wide';
+    src: url('../assets/fonts/Array-Wide.woff2') format('woff2'),
+        url('../assets/fonts/Array-Wide.woff') format('woff'),
+        url('../assets/fonts/Array-Wide.ttf') format('truetype');
+    font-weight: 400;
+    font-display: swap;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Array-Regular';
+    src: url('../assets/fonts/Array-Regular.woff2') format('woff2'),
+        url('../assets/fonts/Array-Regular.woff') format('woff'),
+        url('../assets/fonts/Array-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-display: swap;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Array-Semibold';
+    src: url('../assets/fonts/Array-Semibold.woff2') format('woff2'),
+        url('../assets/fonts/Array-Semibold.woff') format('woff'),
+        url('../assets/fonts/Array-Semibold.ttf') format('truetype');
+    font-weight: 600;
+    font-display: swap;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Array-SemiboldWide';
+    src: url('../assets/fonts/Array-SemiboldWide.woff2') format('woff2'),
+        url('../assets/fonts/Array-SemiboldWide.woff') format('woff'),
+        url('../assets/fonts/Array-SemiboldWide.ttf') format('truetype');
+    font-weight: 600;
+    font-display: swap;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Array-BoldWide';
+    src: url('../assets/fonts/Array-BoldWide.woff2') format('woff2'),
+        url('../assets/fonts/Array-BoldWide.woff') format('woff'),
+        url('../assets/fonts/Array-BoldWide.ttf') format('truetype');
+    font-weight: 700;
+    font-display: swap;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Array-Bold';
+    src: url('../assets/fonts/Array-Bold.woff2') format('woff2'),
+        url('../assets/fonts/Array-Bold.woff') format('woff'),
+        url('../assets/fonts/Array-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-display: swap;
+    font-style: normal;
+}

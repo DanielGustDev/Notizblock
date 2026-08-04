@@ -1,0 +1,23 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    scroll-behavior: smooth;
+}
+
+html {
+    font-size: 16px;
+    color: #F5F5F5;
+}
+
+a {
+    text-decoration: none;
+}
+
+h1 {
+    font-family: 'Array-Regular';
+    font-size: 4rem;
+}
+
+p {
+    font-family: 'Khand-Semibold';
+}

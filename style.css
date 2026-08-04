@@ -1,0 +1,5 @@
+body {
+    background-image: url(./assets/imgs/space-wallpaper.jpg);
+    background-repeat: no-repeat;
+    object-fit: cover;
+}
