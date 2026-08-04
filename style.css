@@ -1,5 +1,10 @@
 body {
-    background-image: url(./assets/imgs/space-wallpaper.jpg);
+    background-image: url(./assets/imgs/space-wallpaper.webp);
     background-repeat: no-repeat;
+    background-size: 100% auto;
     object-fit: cover;
+}
+
+main {
+    margin: 50px;
 }
