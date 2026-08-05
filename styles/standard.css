@@ -16,8 +16,23 @@ a {
 h1 {
     font-family: 'Array-Semibold';
     font-size: 4rem;
+
+    border-bottom: 2px dotted #F5F5F5;
+}
+
+h2 {
+    font-family: 'Array-Semibold';
+    font-size: 2rem;
+
+    border-bottom: 2px dotted #F5F5F5;
 }
 
 p {
     font-family: 'Khand-Semibold';
+
+    padding: 2px;
+}
+
+input {
+    margin: 4px;
 }
