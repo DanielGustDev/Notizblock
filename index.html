@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notitzblock</title>
 
+    <link rel=" icon" type="image/x-icon" href="./assets/icons/notbook_icon.svg">
+
     <script src="./script.js"></script>
 
     <link rel="stylesheet" href="./styles/standard.css">
@@ -14,11 +16,19 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 
-<body onload="renderNotes()">
+<body onload="init()">
     <main>
         <h1>Notitzblock</h1>
-        <input id="note_input" type="text">
-        <button onclick="addNote()">Notiz speichern</button>
+        <div class="input-container">
+            <input id="note_title_input" type="text" placeholder="Neuer Titel">
+
+            <select id="title_select">
+                <option value="">Titel auswählen</option>
+            </select>
+
+            <input id="note_input" type="text" placeholder="Notiz eingeben">
+            <button onclick="addNote()">Notiz speichern</button>
+        </div>
         <h2>Notizen</h2>
         <div id="content">
 
