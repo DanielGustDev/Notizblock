@@ -3,9 +3,6 @@
 let notesData = [];
 let trashData = [];
 
-let trashNotesTitles = [];
-let trashNotes = [];
-
 function init() {
   loadFromLocalStorage();
   renderNotes();
@@ -21,8 +18,17 @@ function loadFromLocalStorage() {
   let loadedNotesData = localStorage.getItem("notesData");
   let loadedTrashData = localStorage.getItem("trashData");
 
-  notesData = loadedNotesData ? JSON.parse(loadedNotesData) : [];
-  trashData = loadedTrashData ? JSON.parse(loadedTrashData) : [];
+  if (loadedNotesData) {
+    notesData = JSON.parse(loadedNotesData);
+  } else {
+    notesData = [];
+  }
+
+  if (loadedTrashData) {
+    trashData = JSON.parse(loadedTrashData);
+  } else {
+    trashData = [];
+  }
 }
 
 function getDropdownOptionTemplate(title) {
@@ -67,21 +73,42 @@ function renderNotes() {
 
   contentRef.innerHTML = "";
 
+  let addedTitles = [];
+
   for (let groupIndex = 0; groupIndex < notesData.length; groupIndex++) {
-    let group = notesData[groupIndex];
+    let currentGroup = notesData[groupIndex];
 
-    titleSelectRef.innerHTML += getDropdownOptionTemplate(group.title);
+    let titleAlreadyExists = false;
+    for (
+      let trackingIndex = 0;
+      trackingIndex < addedTitles.length;
+      trackingIndex++
+    ) {
+      if (addedTitles[trackingIndex] === currentGroup.title) {
+        titleAlreadyExists = true;
+        break;
+      }
+    }
 
-    let itemsHTML = "";
-    for (let itemIndex = 0; itemIndex < group.items.length; itemIndex++) {
-      itemsHTML += getNoteItemTemplate(
+    if (titleAlreadyExists === false) {
+      addedTitles.push(currentGroup.title);
+      titleSelectRef.innerHTML += getDropdownOptionTemplate(currentGroup.title);
+    }
+
+    let itemsHtml = "";
+    for (
+      let itemIndex = 0;
+      itemIndex < currentGroup.items.length;
+      itemIndex++
+    ) {
+      itemsHtml += getNoteItemTemplate(
         groupIndex,
         itemIndex,
-        group.items[itemIndex],
+        currentGroup.items[itemIndex],
       );
     }
 
-    contentRef.innerHTML += getNoteGroupTemplate(group.title, itemsHTML);
+    contentRef.innerHTML += getNoteGroupTemplate(currentGroup.title, itemsHtml);
   }
 }
 
@@ -90,18 +117,25 @@ function renderTrashNotes() {
   trashContentRef.innerHTML = "";
 
   for (let groupIndex = 0; groupIndex < trashData.length; groupIndex++) {
-    let group = trashData[groupIndex];
+    let currentGroup = trashData[groupIndex];
 
-    let itemsHTML = "";
-    for (let itemIndex = 0; itemIndex < group.items.length; itemIndex++) {
-      itemsHTML += getTrashItemTemplate(
+    let itemsHtml = "";
+    for (
+      let itemIndex = 0;
+      itemIndex < currentGroup.items.length;
+      itemIndex++
+    ) {
+      itemsHtml += getTrashItemTemplate(
         groupIndex,
         itemIndex,
-        group.items[itemIndex],
+        currentGroup.items[itemIndex],
       );
     }
 
-    trashContentRef.innerHTML += getTrashGroupTemplate(group.title, itemsHTML);
+    trashContentRef.innerHTML += getTrashGroupTemplate(
+      currentGroup.title,
+      itemsHtml,
+    );
   }
 }
 
@@ -132,11 +166,23 @@ function getSelectedTitle(inputTitle, selectTitle) {
 }
 
 function insertNoteIntoData(dataArray, title, text) {
-  let group = dataArray.find((g) => g.title === title);
-  if (group) {
-    group.items.push(text);
+  let foundGroup = null;
+
+  for (let groupIndex = 0; groupIndex < dataArray.length; groupIndex++) {
+    let currentGroup = dataArray[groupIndex];
+    if (currentGroup.title === title) {
+      foundGroup = currentGroup;
+      break;
+    }
+  }
+
+  if (foundGroup !== null) {
+    foundGroup.items.push(text);
   } else {
-    dataArray.push({ title: title, items: [text] });
+    dataArray.push({
+      title: title,
+      items: [text],
+    });
   }
 }
 
