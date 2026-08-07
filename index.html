@@ -14,12 +14,16 @@
     <link rel="stylesheet" href="./styles/standard.css">
     <link rel="stylesheet" href="./styles/assets.css">
     <link rel="stylesheet" href="./styles/fonts.css">
+    <link rel="stylesheet" href="./styles/variables.css">
     <link rel="stylesheet" href="./style.css">
 </head>
 
 <body onload="init()">
     <main>
-        <h1>Notizblock</h1>
+        <header>
+            <h1>Notizblock</h1>
+        </header>
+
         <div class="input-container">
             <input id="note_title_input" type="text" placeholder="Neuer Titel">
 
@@ -30,11 +34,11 @@
             <input id="note_input" type="text" placeholder="Notiz eingeben">
             <button onclick="addNote()">Notiz speichern</button>
         </div>
-        <h2>Notizen</h2>
+        <h2>Notizen :</h2>
         <div id="content">
 
         </div>
-        <h2>Papierkorb</h2>
+        <h2>Papierkorb :</h2>
         <div id="trash_content">
 
         </div>

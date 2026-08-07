@@ -33,44 +33,17 @@ function loadFromLocalStorage() {
 
 function renderNotes() {
   let contentRef = document.getElementById("content");
-  let titleSelectRef = document.getElementById("title_select");
-
   contentRef.innerHTML = "";
 
-  let addedTitles = [];
+  renderDropdownOptions();
 
   for (let groupIndex = 0; groupIndex < notesData.length; groupIndex++) {
     let currentGroup = notesData[groupIndex];
-
-    let titleAlreadyExists = false;
-    for (
-      let trackingIndex = 0;
-      trackingIndex < addedTitles.length;
-      trackingIndex++
-    ) {
-      if (addedTitles[trackingIndex] === currentGroup.title) {
-        titleAlreadyExists = true;
-        break;
-      }
-    }
-
-    if (titleAlreadyExists === false) {
-      addedTitles.push(currentGroup.title);
-      titleSelectRef.innerHTML += getDropdownOptionTemplate(currentGroup.title);
-    }
-
-    let itemsHtml = "";
-    for (
-      let itemIndex = 0;
-      itemIndex < currentGroup.items.length;
-      itemIndex++
-    ) {
-      itemsHtml += getNoteItemTemplate(
-        groupIndex,
-        itemIndex,
-        currentGroup.items[itemIndex],
-      );
-    }
+    let itemsHtml = renderGroupItems(
+      currentGroup.items,
+      groupIndex,
+      getNoteItemTemplate,
+    );
 
     contentRef.innerHTML += getNoteGroupTemplate(currentGroup.title, itemsHtml);
   }
@@ -82,19 +55,11 @@ function renderTrashNotes() {
 
   for (let groupIndex = 0; groupIndex < trashData.length; groupIndex++) {
     let currentGroup = trashData[groupIndex];
-
-    let itemsHtml = "";
-    for (
-      let itemIndex = 0;
-      itemIndex < currentGroup.items.length;
-      itemIndex++
-    ) {
-      itemsHtml += getTrashItemTemplate(
-        groupIndex,
-        itemIndex,
-        currentGroup.items[itemIndex],
-      );
-    }
+    let itemsHtml = renderGroupItems(
+      currentGroup.items,
+      groupIndex,
+      getTrashItemTemplate,
+    );
 
     trashContentRef.innerHTML += getTrashGroupTemplate(
       currentGroup.title,
@@ -102,6 +67,42 @@ function renderTrashNotes() {
     );
   }
 }
+
+// Hilfsfunktion: Baut die HTML-Liste für Items auf
+function renderGroupItems(items, groupIndex, templateFunction) {
+  let itemsHtml = "";
+  for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
+    itemsHtml += templateFunction(groupIndex, itemIndex, items[itemIndex]);
+  }
+  return itemsHtml;
+}
+
+// Hilfsfunktion: Befüllt das Dropdown
+function renderDropdownOptions() {
+  let titleSelectRef = document.getElementById("title_select");
+  titleSelectRef.innerHTML = '<option value="">Titel auswählen</option>';
+
+  let uniqueTitles = getUniqueTitles(notesData);
+  for (let i = 0; i < uniqueTitles.length; i++) {
+    titleSelectRef.innerHTML += getDropdownOptionTemplate(uniqueTitles[i]);
+  }
+}
+
+// Hilfsfunktion: Filtert doppelte Titel heraus
+function getUniqueTitles(dataArray) {
+  let titles = [];
+  for (let i = 0; i < dataArray.length; i++) {
+    let title = dataArray[i].title;
+    if (!titles.includes(title)) {
+      titles.push(title);
+    }
+  }
+  return titles;
+}
+
+// -----------------------------------------------------------------------------
+// 3. AKTIONEN & DATENVERARBEITUNG
+// -----------------------------------------------------------------------------
 
 function addNote() {
   let noteTitleInputRef = document.getElementById("note_title_input");
@@ -130,17 +131,9 @@ function getSelectedTitle(inputTitle, selectTitle) {
 }
 
 function insertNoteIntoData(dataArray, title, text) {
-  let foundGroup = null;
+  let foundGroup = findGroupByTitle(dataArray, title);
 
-  for (let groupIndex = 0; groupIndex < dataArray.length; groupIndex++) {
-    let currentGroup = dataArray[groupIndex];
-    if (currentGroup.title === title) {
-      foundGroup = currentGroup;
-      break;
-    }
-  }
-
-  if (foundGroup !== null) {
+  if (foundGroup) {
     foundGroup.items.push(text);
   } else {
     dataArray.push({
@@ -148,6 +141,16 @@ function insertNoteIntoData(dataArray, title, text) {
       items: [text],
     });
   }
+}
+
+// Hilfsfunktion: Sucht nach einer vorhandenen Notizgruppe
+function findGroupByTitle(dataArray, title) {
+  for (let i = 0; i < dataArray.length; i++) {
+    if (dataArray[i].title === title) {
+      return dataArray[i];
+    }
+  }
+  return null;
 }
 
 function clearInputs(inputTitleRef, inputNoteRef, selectRef) {
