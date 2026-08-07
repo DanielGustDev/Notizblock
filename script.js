@@ -143,6 +143,23 @@ function insertNoteIntoData(dataArray, title, text) {
   }
 }
 
+function openDialog() {
+  let dialog = document.getElementById("trash_can");
+
+  dialog.showModal();
+}
+
+function closeDialog() {
+  let dialog = document.getElementById("trash_can");
+  if (dialog instanceof HTMLDialogElement) {
+    dialog.close();
+  }
+}
+
+function stopBubbling(event) {
+  event.stopPropagation();
+}
+
 // Hilfsfunktion: Sucht nach einer vorhandenen Notizgruppe
 function findGroupByTitle(dataArray, title) {
   for (let i = 0; i < dataArray.length; i++) {
@@ -168,6 +185,21 @@ function moveToTrash(groupIndex, itemIndex) {
   }
 
   insertNoteIntoData(trashData, titleToMove, itemToMove);
+
+  saveToLocalStorage();
+  renderNotes();
+  renderTrashNotes();
+}
+
+function moveToNotes(groupIndex, itemIndex) {
+  let titleToMove = trashData[groupIndex].title;
+  let itemToMove = trashData[groupIndex].items.splice(itemIndex, 1)[0];
+
+  if (trashData[groupIndex].items.length === 0) {
+    trashData.splice(groupIndex, 1);
+  }
+
+  insertNoteIntoData(notesData, titleToMove, itemToMove);
 
   saveToLocalStorage();
   renderNotes();

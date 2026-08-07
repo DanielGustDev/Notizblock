@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notizblock</title>
 
-    <link rel=" icon" type="image/x-icon" href="./assets/icons/notbook_icon.svg">
+    <meta name="theme-color" content="var(--background-primary)">
+
+    <link rel="shortcut icon" href="./assets/icons/notebook-icon.svg" type="image/x-icon">
 
     <script src="./script.js"></script>
     <script src="./scripts/templates.js"></script>
@@ -22,9 +24,10 @@
     <main>
         <header>
             <h1>Notizblock</h1>
+            <button onclick="openDialog()"><img src="./assets/icons/trash-bin-icon.svg" alt="trash can icon"></button>
         </header>
 
-        <div class="input-container">
+        <section class="input-container">
             <input id="note_title_input" type="text" placeholder="Neuer Titel">
 
             <select id="title_select">
@@ -32,16 +35,16 @@
             </select>
 
             <input id="note_input" type="text" placeholder="Notiz eingeben">
-            <button onclick="addNote()">Notiz speichern</button>
-        </div>
+            <button onclick="addNote()">Speichern</button>
+        </section>
         <h2>Notizen :</h2>
-        <div id="content">
-
-        </div>
-        <h2>Papierkorb :</h2>
-        <div id="trash_content">
-
-        </div>
+        <section id="content"></section>
+        <dialog id="trash_can" onclick="closeDialog()">
+            <section onclick="stopBubbling(event)">
+                <h2>Papierkorb : <button id="close_button" onclick="closeDialog()">x</button></h2>
+                <section id="trash_content"></section>
+            </section>
+        </dialog>
     </main>
 </body>
 

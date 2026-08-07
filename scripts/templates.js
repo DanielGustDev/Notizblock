@@ -8,7 +8,7 @@ function getNoteItemTemplate(groupIndex, itemIndex, text) {
   return `
     <li>
       ${text} 
-      <button onclick="moveToTrash(${groupIndex}, ${itemIndex})">X</button>
+      <button onclick="moveToTrash(${groupIndex}, ${itemIndex})"><img src="./assets/icons/trash-bin-icon.svg" alt="trash can icon"></button>
     </li>`;
 }
 
@@ -24,7 +24,8 @@ function getTrashItemTemplate(groupIndex, itemIndex, text) {
   return `
     <li>
       ${text} 
-      <button onclick="deleteNote(${groupIndex}, ${itemIndex})">X</button>
+      <button onclick="deleteNote(${groupIndex}, ${itemIndex})"><img src="./assets/icons/trash-bin-icon.svg" alt="trash can icon"></button>
+      <button onclick="moveToNotes(${groupIndex}, ${itemIndex})"><img src="./assets/icons/notebutton-icon.svg" alt="notebook icon"></button>
     </li>`;
 }
 

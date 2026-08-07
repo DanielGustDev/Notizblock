@@ -1,0 +1,29 @@
+button {
+    background-color: var(--font-primary);
+
+    border: 4px solid transparent;
+    border-radius: var(--border-radius);
+
+    margin: 6px;
+
+    height: fit-content;
+    width: fit-content;
+}
+
+button img {
+    height: clamp(20px, 1vw, 40px);
+}
+
+button:hover,
+select:hover {
+    cursor: pointer;
+
+    border: var(--border)
+}
+
+select {
+    background-color: var(--font-primary);
+
+    border: 4px solid transparent;
+    border-radius: var(--border-radius);
+}
