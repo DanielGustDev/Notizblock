@@ -1,12 +1,40 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: script.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: script.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * Globales Array zur Speicherung aller aktiven Notizen.
- * @type {Array<{title: string, items: Array<string>}>}
+ * @type {Array&lt;{title: string, items: Array&lt;string>}>}
  */
 let notesData = [];
 
 /**
  * Globales Array zur Speicherung aller Notizen im Papierkorb.
- * @type {Array<{title: string, items: Array<string>}>}
+ * @type {Array&lt;{title: string, items: Array&lt;string>}>}
  */
 let trashData = [];
 
@@ -57,7 +85,7 @@ function renderNotes() {
 
   renderDropdownOptions();
 
-  for (let groupIndex = 0; groupIndex < notesData.length; groupIndex++) {
+  for (let groupIndex = 0; groupIndex &lt; notesData.length; groupIndex++) {
     let currentGroup = notesData[groupIndex];
     let itemsHtml = renderGroupItems(
       currentGroup.items,
@@ -77,7 +105,7 @@ function renderTrashNotes() {
   if (!trashContentRef) return;
   trashContentRef.innerHTML = "";
 
-  for (let groupIndex = 0; groupIndex < trashData.length; groupIndex++) {
+  for (let groupIndex = 0; groupIndex &lt; trashData.length; groupIndex++) {
     let currentGroup = trashData[groupIndex];
     let itemsHtml = renderGroupItems(
       currentGroup.items,
@@ -94,14 +122,14 @@ function renderTrashNotes() {
 
 /**
  * Erstellt die HTML-Zeichenkette für alle Items einer Notizgruppe.
- * @param {Array<string>} items - Liste der Texteinträge.
+ * @param {Array&lt;string>} items - Liste der Texteinträge.
  * @param {number} groupIndex - Index der Notizgruppe im Datenarray.
  * @param {Function} templateFunction - Funktion zur Generierung des HTML-Templates pro Item.
  * @returns {string} Akkumulierter HTML-String aller Gruppen-Items.
  */
 function renderGroupItems(items, groupIndex, templateFunction) {
   let itemsHtml = "";
-  for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
+  for (let itemIndex = 0; itemIndex &lt; items.length; itemIndex++) {
     itemsHtml += templateFunction(groupIndex, itemIndex, items[itemIndex]);
   }
   return itemsHtml;
@@ -113,23 +141,23 @@ function renderGroupItems(items, groupIndex, templateFunction) {
 function renderDropdownOptions() {
   let titleSelectRef = document.getElementById("title_select");
   if (!titleSelectRef) return;
-  titleSelectRef.innerHTML = '<option value="">Titel auswählen</option>';
+  titleSelectRef.innerHTML = '&lt;option value="">Titel auswählen&lt;/option>';
 
   let uniqueTitles = getUniqueTitles(notesData);
-  for (let i = 0; i < uniqueTitles.length; i++) {
+  for (let i = 0; i &lt; uniqueTitles.length; i++) {
     titleSelectRef.innerHTML += getDropdownOptionTemplate(uniqueTitles[i]);
   }
 }
 
 /**
  * Filtert doppelte Titel aus einem Notiz-Datenarray heraus.
- * @param {Array<{title: string, items: Array<string>}>} dataArray - Das zu prüfende Notiz-Array.
- * @returns {Array<string>} Array mit eindeutigen Titeln.
+ * @param {Array&lt;{title: string, items: Array&lt;string>}>} dataArray - Das zu prüfende Notiz-Array.
+ * @returns {Array&lt;string>} Array mit eindeutigen Titeln.
  */
 function getUniqueTitles(dataArray) {
   /** @type {string[]} */
   let titles = [];
-  for (let i = 0; i < dataArray.length; i++) {
+  for (let i = 0; i &lt; dataArray.length; i++) {
     let title = dataArray[i].title;
     if (!titles.includes(title)) {
       titles.push(title);
@@ -183,7 +211,7 @@ function getSelectedTitle(inputTitle, selectTitle) {
 
 /**
  * Fügt einen Notiztext in ein Datenarray ein. Erstellt eine neue Gruppe, falls der Titel nicht existiert.
- * @param {Array<{title: string, items: Array<string>}>} dataArray - Ziel-Array (notesData oder trashData).
+ * @param {Array&lt;{title: string, items: Array&lt;string>}>} dataArray - Ziel-Array (notesData oder trashData).
  * @param {string} title - Titel der Notizgruppe.
  * @param {string} text - Der einzufügende Notiztext.
  */
@@ -230,12 +258,12 @@ function stopBubbling(event) {
 
 /**
  * Sucht eine Notizgruppe anhand ihres Titels.
- * @param {Array<{title: string, items: Array<string>}>} dataArray
+ * @param {Array&lt;{title: string, items: Array&lt;string>}>} dataArray
  * @param {string} title
- * @returns {{title: string, items: Array<string>} | null}
+ * @returns {{title: string, items: Array&lt;string>} | null}
  */
 function findGroupByTitle(dataArray, title) {
-  for (let i = 0; i < dataArray.length; i++) {
+  for (let i = 0; i &lt; dataArray.length; i++) {
     if (dataArray[i].title === title) {
       return dataArray[i];
     }
@@ -310,3 +338,26 @@ function deleteNote(groupIndex, itemIndex) {
   saveToLocalStorage();
   renderTrashNotes();
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addNote">addNote</a></li><li><a href="global.html#clearInputs">clearInputs</a></li><li><a href="global.html#closeDialog">closeDialog</a></li><li><a href="global.html#deleteNote">deleteNote</a></li><li><a href="global.html#findGroupByTitle">findGroupByTitle</a></li><li><a href="global.html#getDropdownOptionTemplate">getDropdownOptionTemplate</a></li><li><a href="global.html#getNoteGroupTemplate">getNoteGroupTemplate</a></li><li><a href="global.html#getNoteItemTemplate">getNoteItemTemplate</a></li><li><a href="global.html#getSelectedTitle">getSelectedTitle</a></li><li><a href="global.html#getTrashGroupTemplate">getTrashGroupTemplate</a></li><li><a href="global.html#getTrashItemTemplate">getTrashItemTemplate</a></li><li><a href="global.html#getUniqueTitles">getUniqueTitles</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#insertNoteIntoData">insertNoteIntoData</a></li><li><a href="global.html#loadFromLocalStorage">loadFromLocalStorage</a></li><li><a href="global.html#moveToNotes">moveToNotes</a></li><li><a href="global.html#moveToTrash">moveToTrash</a></li><li><a href="global.html#notesData">notesData</a></li><li><a href="global.html#openDialog">openDialog</a></li><li><a href="global.html#renderDropdownOptions">renderDropdownOptions</a></li><li><a href="global.html#renderGroupItems">renderGroupItems</a></li><li><a href="global.html#renderNotes">renderNotes</a></li><li><a href="global.html#renderTrashNotes">renderTrashNotes</a></li><li><a href="global.html#saveToLocalStorage">saveToLocalStorage</a></li><li><a href="global.html#stopBubbling">stopBubbling</a></li><li><a href="global.html#trashData">trashData</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Sat Aug 08 2026 18:21:28 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
