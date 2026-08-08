@@ -1,18 +1,23 @@
 h1 {
-    font-size: 5rem;
+    font-size: clamp(2rem, calc(6vw + 1rem), 5rem);
+
+    border: var(--border);
+    border-radius: var(--border-radius);
+
+    background-color: var(--background-primary);
 
     margin: 6px;
 }
 
 h2 {
-    font-size: 3rem;
+    font-size: clamp(1.7rem, calc(5vw + 1rem), 2.5rem);
 
     display: flex;
     justify-content: space-between;
 }
 
 h3 {
-    font-size: 2rem;
+    font-size: clamp(1.5rem, calc(3vw + 1rem), 2rem);
 
     margin: 6px;
 }
@@ -21,9 +26,11 @@ header {
     border: var(--border);
     border-radius: var(--border-radius);
 
-    background-color: var(--background-primary);
+    background-color: var(--background-secondary);
 
     text-align: center;
+
+    max-width: clamp(320px, 50vw, 1440px);
 
     padding: 8px;
 
@@ -33,6 +40,7 @@ header {
 
 header button {
     display: flex;
+    margin-left: auto;
 }
 
 ul {
@@ -79,6 +87,7 @@ input {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     gap: 6px;
 }
 
@@ -92,10 +101,10 @@ h2 {
     border-radius: var(--border-radius);
 
     height: fit-content;
-    width: clamp(600px, 20vw, 1000px);
+    width: clamp(270px, 18vw, 1000px);
 
-    margin: 6px;
-    padding: 8px;
+    margin: 4px;
+    padding: 4px;
 
     text-align: start;
 }

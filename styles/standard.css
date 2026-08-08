@@ -9,7 +9,7 @@ html {
     font-size: 16px;
     color: var(--font-primary);
 
-    background-color: var(--font-primary);
+    background-color: var(--background-primary);
 }
 
 main {
@@ -20,7 +20,7 @@ main {
 }
 
 dialog {
-    width: fit-content;
+    width: clamp(340px, 20vw, 600px);
     height: fit-content;
 
     margin: auto;
@@ -33,6 +33,15 @@ dialog {
     border-radius: 36px;
 
     overflow: hidden;
+}
+
+dialog h2 {
+    flex-direction: column;
+}
+
+dialog>h2>button {
+    display: flex;
+    margin-left: auto;
 }
 
 dialog::backdrop {
