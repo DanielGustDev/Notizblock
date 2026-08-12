@@ -201,7 +201,7 @@ function insertNoteIntoData(dataArray, title, text) {
 }
 
 /**
- * Öffnet das Papierkorb-Dialogfenster modall.
+ * Öffnet das Papierkorb-Dialogfenster modal.
  */
 function openDialog() {
   let dialog = document.getElementById("trash_can");
@@ -256,39 +256,21 @@ function clearInputs(inputTitleRef, inputNoteRef, selectRef) {
 }
 
 /**
- * Verschiebt ein Notiz-Item von den aktiven Notizen in den Papierkorb.
- * @param {number} groupIndex - Index der Notizgruppe.
+ * Verschiebt ein Notiz-Item von einem Daten-Array in ein anderes (z. B. Notizen <-> Papierkorb).
+ * @param {Array<{title: string, items: Array<string>}>} sourceData - Das Quell-Array.
+ * @param {Array<{title: string, items: Array<string>}>} targetData - Das Ziel-Array.
+ * @param {number} groupIndex - Index der Notizgruppe im Quell-Array.
  * @param {number} itemIndex - Index des Items innerhalb der Gruppe.
  */
-function moveToTrash(groupIndex, itemIndex) {
-  let itemToMove = notesData[groupIndex].items.splice(itemIndex, 1)[0];
-  let titleToMove = notesData[groupIndex].title;
+function moveNote(sourceData, targetData, groupIndex, itemIndex) {
+  let titleToMove = sourceData[groupIndex].title;
+  let itemToMove = sourceData[groupIndex].items.splice(itemIndex, 1)[0];
 
-  if (notesData[groupIndex].items.length === 0) {
-    notesData.splice(groupIndex, 1);
+  if (sourceData[groupIndex].items.length === 0) {
+    sourceData.splice(groupIndex, 1);
   }
 
-  insertNoteIntoData(trashData, titleToMove, itemToMove);
-
-  saveToLocalStorage();
-  renderNotes();
-  renderTrashNotes();
-}
-
-/**
- * Verschiebt ein Notiz-Item aus dem Papierkorb zurück zu den aktiven Notizen.
- * @param {number} groupIndex - Index der Papierkorbgruppe.
- * @param {number} itemIndex - Index des Items innerhalb der Gruppe.
- */
-function moveToNotes(groupIndex, itemIndex) {
-  let titleToMove = trashData[groupIndex].title;
-  let itemToMove = trashData[groupIndex].items.splice(itemIndex, 1)[0];
-
-  if (trashData[groupIndex].items.length === 0) {
-    trashData.splice(groupIndex, 1);
-  }
-
-  insertNoteIntoData(notesData, titleToMove, itemToMove);
+  insertNoteIntoData(targetData, titleToMove, itemToMove);
 
   saveToLocalStorage();
   renderNotes();
