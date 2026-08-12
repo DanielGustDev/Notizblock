@@ -36,12 +36,12 @@ dialog {
 }
 
 dialog h2 {
-    flex-direction: column;
-}
-
-dialog>h2>button {
     display: flex;
-    margin-left: auto;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
 }
 
 dialog::backdrop {
