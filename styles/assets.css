@@ -1,4 +1,6 @@
 button {
+    color: var(--background-primary);
+
     background-color: var(--font-primary);
 
     border: 4px solid transparent;
@@ -22,8 +24,13 @@ select:hover {
 }
 
 select {
+    color: var(--background-primary);
     background-color: var(--font-primary);
 
-    border: 4px solid transparent;
+    border: 2px solid var(--background-secondary);
     border-radius: var(--border-radius);
+}
+
+select>option {
+    color: var(--background-primary);
 }

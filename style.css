@@ -32,6 +32,7 @@ header {
 
     max-width: clamp(320px, 50vw, 1440px);
 
+    margin: 8px;
     padding: 8px;
 
     height: fit-content;
@@ -79,7 +80,15 @@ input {
     background-color: var(--font-primary);
     color: var(--background-primary);
 
+    border: 2px solid var(--background-secondary);
+    border-radius: var(--border-radius);
+
     margin: 6px;
+    padding: 6px;
+}
+
+input::placeholder {
+    color: var(--background-primary);
 }
 
 .input-container {
@@ -103,8 +112,8 @@ h2 {
     height: fit-content;
     width: clamp(270px, 18vw, 1000px);
 
-    margin: 4px;
-    padding: 4px;
+    margin-bottom: 4px;
+    padding: 8px;
 
     text-align: start;
 }
