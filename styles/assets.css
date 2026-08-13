@@ -27,7 +27,7 @@ select {
     color: var(--background-primary);
     background-color: var(--font-primary);
 
-    border: 2px solid var(--background-secondary);
+    border: 4px solid transparent;
     border-radius: var(--border-radius);
 }
 
