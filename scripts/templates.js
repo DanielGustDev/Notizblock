@@ -19,7 +19,7 @@ function getNoteItemTemplate(groupIndex, itemIndex, text) {
     <li>
       ${text} 
       <button onclick="moveNote(notesData, trashData, ${groupIndex}, ${itemIndex})">
-        <img src="./assets/icons/trash-bin-icon.svg" alt="trash can icon">
+        <img src="./assets/icons/trash-button.svg" alt="trash can icon">
       </button>
     </li>`;
 }
@@ -50,10 +50,10 @@ function getTrashItemTemplate(groupIndex, itemIndex, text) {
     <li>
       ${text} 
       <button onclick="deleteNote(${groupIndex}, ${itemIndex})">
-        <img src="./assets/icons/trash-bin-icon.svg" alt="trash can icon">
+        <img src="./assets/icons/trash-button.svg" alt="trash can icon">
       </button>
       <button onclick="moveNote(trashData, notesData, ${groupIndex}, ${itemIndex})">
-        <img src="./assets/icons/notebutton-icon.svg" alt="notebook icon">
+        <img src="./assets/icons/note-button.svg" alt="notebook icon">
       </button>
     </li>`;
 }
@@ -67,7 +67,7 @@ function getTrashItemTemplate(groupIndex, itemIndex, text) {
 function getTrashGroupTemplate(title, itemsHTML) {
   return `
     <div class="trash-group">
-      <h3>${title} :</h3>
+      <h3>${title}:</h3>
       <ul>${itemsHTML}</ul>
     </div>`;
 }

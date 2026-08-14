@@ -78,6 +78,8 @@ li::before {
 
 input {
     background-color: var(--font-primary);
+
+    font-family: 'DotGothic16';
     color: var(--background-primary);
 
     border: 2px solid var(--background-secondary);
@@ -88,6 +90,7 @@ input {
 }
 
 input::placeholder {
+    font-family: 'DotGothic16';
     color: var(--background-primary);
 }
 
