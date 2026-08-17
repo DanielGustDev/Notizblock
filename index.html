@@ -40,12 +40,14 @@
         <h2>Notizen:</h2>
         <section id="content"></section>
         <dialog id="trash_can" onclick="closeDialog()">
-            <header onclick="stopBubbling(event)">
-                <h2>Papierkorb:</h2>
-                <button id="close_button" onclick="closeDialog()">x</button>
+            <div onclick="stopBubbling(event)">
+                <header>
+                    <h2>Papierkorb:</h2>
+                    <button id="close_button" onclick="closeDialog()">x</button>
 
-            </header>
-            <section id="trash_content"></section>
+                </header>
+                <section id="trash_content"></section>
+            </div>
         </dialog>
     </main>
 </body>

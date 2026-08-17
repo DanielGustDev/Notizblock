@@ -33,7 +33,7 @@ function getNoteItemTemplate(groupIndex, itemIndex, text) {
 function getNoteGroupTemplate(title, itemsHTML) {
   return `
     <div class="note-group">
-      <h3>${title} :</h3>
+      <h3>${title}:</h3>
       <ul>${itemsHTML}</ul>
     </div>`;
 }
