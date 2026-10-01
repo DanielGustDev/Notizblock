@@ -4,6 +4,27 @@ A lightweight, structured web application for managing notes with categorization
 
 ---
 
+## 📁 Project Structure
+
+├── assets/
+│ ├── fonts/
+│ ├── icons/ # SVG icons for trash bin and notebook
+│ └── imgs/
+├── css/
+│ └── styles/
+│ ├── assets.css
+│ ├── fonts.css
+│ ├── standard.css
+│ └── variables.css
+├── scripts/
+│ └── templates.js # HTML template functions
+├── index.html # Main HTML file
+├── README.md
+├── script.js # Main logic & state management
+└── style.css # Global stylesheet file
+
+---
+
 ## 🚀 Features
 
 - **Organize & Group:** Create notes under existing categories or create new topic groups.
@@ -23,27 +44,6 @@ A lightweight, structured web application for managing notes with categorization
 - **CSS3** (Custom styling, rotated diamonds as bullet points via pseudo-elements)
 - **JavaScript (ES6+)** (DOM manipulation, data-driven rendering, state management)
 - **JSDoc** (Complete type and function documentation)
-
----
-
-## 📁 Project Structure
-
-├── assets/
-│ ├── fonts/
-│ ├── icons/ # SVG icons for trash bin and notebook
-│ └── imgs/
-├── css/
-│ └── styles/
-│ ├── assets.css
-│ ├── fonts.css
-│ ├── standard.css
-│ └── variables.css
-├── scripts/
-│ └── templates.js # HTML template functions
-├── index.html # Main HTML file
-├── README.md
-├── script.js # Main logic & state management
-└── style.css # Global stylesheet file
 
 ---
 
