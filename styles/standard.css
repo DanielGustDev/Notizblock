@@ -19,39 +19,3 @@ main {
 
     margin: 8px;
 }
-
-dialog {
-    width: clamp(340px, 20vw, 600px);
-    height: fit-content;
-
-    margin: auto;
-
-    padding: clamp(8px, 4vw, 16px);
-    color: var(--font-primary);
-    background-color: var(--background-secondary);
-
-    border: var(--border);
-    border-radius: 36px;
-
-    overflow: hidden;
-}
-
-dialog h2 {
-    width: 80%;
-}
-
-dialog header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 0;
-    margin: 0;
-
-    border: none;
-}
-
-dialog::backdrop {
-    background-color: transparent;
-    backdrop-filter: blur(4px);
-}
