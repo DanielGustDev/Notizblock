@@ -31,6 +31,7 @@ select {
     background-color: var(--font-primary);
 
     font-family: 'DotGothic16';
+    font-weight: bold;
     color: var(--background-primary);
 
     border: 4px solid transparent;
@@ -38,6 +39,7 @@ select {
 }
 
 select>option {
+    font-weight: bold;
     color: var(--background-primary);
 
     border-radius: var(--border-radius);
