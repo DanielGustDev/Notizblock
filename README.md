@@ -6,6 +6,8 @@ A lightweight, structured web application for managing notes with categorization
 
 ## 📁 Project Structure
 
+```text
+.
 ├── assets/
 │ ├── fonts/
 │ ├── icons/ # SVG icons for trash bin and notebook
@@ -22,6 +24,7 @@ A lightweight, structured web application for managing notes with categorization
 ├── README.md
 ├── script.js # Main logic & state management
 └── style.css # Global stylesheet file
+```
 
 ---
 
