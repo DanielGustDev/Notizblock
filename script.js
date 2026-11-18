@@ -292,3 +292,23 @@ function deleteNote(groupIndex, itemIndex) {
   saveToLocalStorage();
   renderTrashNotes();
 }
+
+/**
+ * Liest den aktuell ausgewählten Wert aus dem Dropdown-Menü aus
+ * und überträgt ihn direkt in das Eingabefeld für den Notiztitel.
+ * Wird automatisch durch das onchange-Event des <select>-Elements ausgelöst.
+ *
+ * @returns {void} Gibt keinen Wert zurück.
+ */
+function fillTitleInput() {
+  let titleSelectRef = document.getElementById("title_select");
+  let noteTitleInputRef = document.getElementById("note_title_input");
+
+  if (
+    !(titleSelectRef instanceof HTMLSelectElement) ||
+    !(noteTitleInputRef instanceof HTMLInputElement)
+  ) {
+    return;
+  }
+  noteTitleInputRef.value = titleSelectRef.value;
+}
