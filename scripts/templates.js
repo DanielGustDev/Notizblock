@@ -8,32 +8,43 @@ function getDropdownOptionTemplate(title) {
 }
 
 /**
- * Erzeugt das HTML-Template für ein einzelnes Notiz-Item.
+ * Erzeugt das HTML-Template für ein einzelnes Notiz-Item inklusive
+ * Lösch-Button und Griff-Button (Drag Handle) am rechten Rand.
  * @param {number} groupIndex - Index der Notizgruppe im Datenarray.
  * @param {number} itemIndex - Index des Items innerhalb der Gruppe.
  * @param {string} text - Der Textinhalt der Notiz.
- * @returns {string} HTML-String des <li>-Elements mit Lösch-Button.
+ * @returns {string} HTML-String des <li>-Elements.
  */
 function getNoteItemTemplate(groupIndex, itemIndex, text) {
   return `
-    <li>
-      ${text} 
-      <button onclick="moveNote(notesData, trashData, ${groupIndex}, ${itemIndex})">
+    <li class="note-item" data-group-index="${groupIndex}" data-item-index="${itemIndex}" ondragover="allowDrop(event)" ondrop="dropNoteItem(event, ${groupIndex}, ${itemIndex})">
+      <span class="note-text">${text}</span>
+      <button type="button" onclick="moveNote(notesData, trashData, ${groupIndex}, ${itemIndex})">
         <img src="./assets/icons/trash-button.svg" alt="trash can icon">
+      </button>
+      <button type="button" class="drag-handle note-drag-handle" draggable="true" title="Notiz verschieben" ondragstart="startDragNoteItem(event, ${groupIndex}, ${itemIndex})">
+        <img src="./assets/icons/grab-icon.svg" alt="trash can icon">
       </button>
     </li>`;
 }
 
 /**
- * Erzeugt das HTML-Template für eine Notizgruppe.
+ * Erzeugt das HTML-Template für eine Notizgruppe inklusive Griff-Button
+ * zum Verschieben der gesamten Gruppe.
  * @param {string} title - Titel der Gruppe.
  * @param {string} itemsHTML - Generierter HTML-String aller enthaltenen Notiz-Items.
+ * @param {number} groupIndex - Index der Notizgruppe im Datenarray.
  * @returns {string} HTML-String des Notizgruppen-Containers.
  */
-function getNoteGroupTemplate(title, itemsHTML) {
+function getNoteGroupTemplate(title, itemsHTML, groupIndex) {
   return `
-    <div class="note-group">
-      <h3>${title}:</h3>
+    <div class="note-group" data-group-index="${groupIndex}" ondragover="allowDrop(event)" ondrop="dropNoteGroup(event, ${groupIndex})">
+      <div class="note-group-header">
+        <h3>${title}:</h3>
+        <button type="button" class="drag-handle group-drag-handle" draggable="true" title="Gruppe verschieben" ondragstart="startDragNoteGroup(event, ${groupIndex})">
+          <img src="./assets/icons/grab-icon.svg" alt="trash can icon">
+        </button>
+      </div>
       <ul>${itemsHTML}</ul>
     </div>`;
 }

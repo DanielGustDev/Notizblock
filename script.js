@@ -48,7 +48,9 @@ function loadFromLocalStorage() {
 }
 
 /**
- * Rendert die aktiven Notizen und aktualisiert das Titel-Dropdown.
+ * Rendert die aktiven Notizen, übergibt den Gruppenindex an das Template
+ * und aktualisiert das Titel-Dropdown.
+ * @returns {void} Gibt keinen Wert zurück.
  */
 function renderNotes() {
   let contentRef = document.getElementById("content");
@@ -65,7 +67,11 @@ function renderNotes() {
       getNoteItemTemplate,
     );
 
-    contentRef.innerHTML += getNoteGroupTemplate(currentGroup.title, itemsHtml);
+    contentRef.innerHTML += getNoteGroupTemplate(
+      currentGroup.title,
+      itemsHtml,
+      groupIndex,
+    );
   }
 }
 
@@ -311,4 +317,150 @@ function fillTitleInput() {
     return;
   }
   noteTitleInputRef.value = titleSelectRef.value;
+}
+
+/**
+ * Speichert den aktuellen Zustand eines laufenden Drag-and-Drop-Vorgangs.
+ * @type {{type: "group" | "item" | null, sourceGroupIndex: number | null, sourceItemIndex: number | null}}
+ */
+let dragState = {
+  type: null, // "group" | "item" | null
+  sourceGroupIndex: null,
+  sourceItemIndex: null,
+};
+
+/**
+ * Startet das Verschieben einer gesamten Notizgruppe über den Handle-Button.
+ * @param {DragEvent} event - Das ausgelöste Drag-Event.
+ * @param {number} groupIndex - Index der gezogenen Notizgruppe in notesData.
+ * @returns {void} Gibt keinen Wert zurück.
+ */
+function startDragNoteGroup(event, groupIndex) {
+  event.stopPropagation();
+  dragState = {
+    type: "group",
+    sourceGroupIndex: groupIndex,
+    sourceItemIndex: null,
+  };
+
+  let groupEl =
+    event.currentTarget instanceof Element
+      ? event.currentTarget.closest(".note-group")
+      : null;
+  if (groupEl instanceof HTMLElement && event.dataTransfer) {
+    event.dataTransfer.effectAllowed = "move";
+    event.dataTransfer.setData("text/plain", `group:${groupIndex}`);
+    event.dataTransfer.setDragImage(groupEl, groupEl.offsetWidth - 20, 20);
+  }
+}
+
+/**
+ * Startet das Verschieben eines einzelnen Notiz-Items über den Handle-Button.
+ * @param {DragEvent} event - Das ausgelöste Drag-Event.
+ * @param {number} groupIndex - Index der Quell-Notizgruppe in notesData.
+ * @param {number} itemIndex - Index des gezogenen Items innerhalb der Gruppe.
+ * @returns {void} Gibt keinen Wert zurück.
+ */
+function startDragNoteItem(event, groupIndex, itemIndex) {
+  event.stopPropagation();
+  dragState = {
+    type: "item",
+    sourceGroupIndex: groupIndex,
+    sourceItemIndex: itemIndex,
+  };
+
+  let itemEl =
+    event.currentTarget instanceof Element
+      ? event.currentTarget.closest(".note-item")
+      : null;
+
+  if (itemEl instanceof HTMLElement && event.dataTransfer) {
+    event.dataTransfer.effectAllowed = "move";
+    event.dataTransfer.setData("text/plain", `item:${groupIndex}:${itemIndex}`);
+    event.dataTransfer.setDragImage(itemEl, itemEl.offsetWidth - 20, 15);
+  }
+}
+
+/**
+ * Erlaubt das Ablegen von Elementen auf einem gültigen Drop-Ziel.
+ * @param {DragEvent} event - Das ausgelöste Dragover-Event.
+ * @returns {void} Gibt keinen Wert zurück.
+ */
+function allowDrop(event) {
+  event.preventDefault();
+  if (event.dataTransfer) {
+    event.dataTransfer.dropEffect = "move";
+  }
+}
+
+/**
+ * Verschiebt eine Notizgruppe an die Zielposition innerhalb von notesData
+ * und aktualisiert LocalStorage sowie die Ansicht.
+ * @param {DragEvent} event - Das ausgelöste Drop-Event.
+ * @param {number} targetGroupIndex - Zielindex der Notizgruppe in notesData.
+ * @returns {void} Gibt keinen Wert zurück.
+ */
+function dropNoteGroup(event, targetGroupIndex) {
+  event.preventDefault();
+  event.stopPropagation();
+
+  if (dragState.type !== "group") return;
+  let fromIndex = dragState.sourceGroupIndex;
+  resetDragState();
+
+  if (fromIndex === null || fromIndex === targetGroupIndex) return;
+
+  let [movedGroup] = notesData.splice(fromIndex, 1);
+  notesData.splice(targetGroupIndex, 0, movedGroup);
+
+  saveToLocalStorage();
+  renderNotes();
+}
+
+/**
+ * Verschiebt ein Notiz-Item an die Zielposition (innerhalb derselben Gruppe
+ * oder in eine andere Gruppe) und entfernt ggf. leere Quellgruppen.
+ * @param {DragEvent} event - Das ausgelöste Drop-Event.
+ * @param {number} targetGroupIndex - Index der Ziel-Notizgruppe in notesData.
+ * @param {number} targetItemIndex - Zielindex des Items innerhalb der Zielgruppe.
+ * @returns {void} Gibt keinen Wert zurück.
+ */
+function dropNoteItem(event, targetGroupIndex, targetItemIndex) {
+  event.preventDefault();
+  event.stopPropagation();
+
+  if (dragState.type !== "item") return;
+  let fromGroupIndex = dragState.sourceGroupIndex;
+  let fromItemIndex = dragState.sourceItemIndex;
+  resetDragState();
+
+  if (
+    fromGroupIndex === null ||
+    fromItemIndex === null ||
+    (fromGroupIndex === targetGroupIndex && fromItemIndex === targetItemIndex)
+  ) {
+    return;
+  }
+
+  let [movedItem] = notesData[fromGroupIndex].items.splice(fromItemIndex, 1);
+  notesData[targetGroupIndex].items.splice(targetItemIndex, 0, movedItem);
+
+  if (notesData[fromGroupIndex].items.length === 0) {
+    notesData.splice(fromGroupIndex, 1);
+  }
+
+  saveToLocalStorage();
+  renderNotes();
+}
+
+/**
+ * Setzt den aktuellen Drag-and-Drop-Zustand auf den Ausgangswert zurück.
+ * @returns {void} Gibt keinen Wert zurück.
+ */
+function resetDragState() {
+  dragState = {
+    type: null,
+    sourceGroupIndex: null,
+    sourceItemIndex: null,
+  };
 }
